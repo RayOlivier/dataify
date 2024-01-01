@@ -33,6 +33,14 @@ app.get('/', (req, res) => {
   res.json(data);
 });
 
+app.get('/test', (req, res) => {
+  console.log('HIT TEST');
+  const data = {
+    text: 'Test successful!'
+  };
+  res.json(data);
+});
+
 app.get('/login', (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -65,32 +73,15 @@ app.get('/callback', (req, res) => {
   })
     .then(response => {
       if (response.status === 200) {
-        const { access_token, token_type } = response.data;
-
-        // // testing by grabbing profile info
-        // axios
-        //   .get('https://api.spotify.com/v1/me', {
-        //     headers: {
-        //       Authorization: `${token_type} ${access_token}`
-        //     }
-        //   })
-        //   .then(response => {
-        //     res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-        //   })
-        //   .catch(err => res.send(err));
-
         // testing refresh token route
-        const { refresh_token } = response.data;
-        axios
-          .get(`http://localhost:8080/refresh_token?refresh_token=${refresh_token}`)
-          .then(response => {
-            res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-          })
-          .catch(error => {
-            res.send(error);
-          });
+        const { access_token, refresh_token } = response.data;
+
+        const queryParams = querystring.stringify({ access_token, refresh_token });
+
+        //redirect to react app && pass token in query params
+        res.redirect(`http://localhost:5173/?${queryParams}`);
       } else {
-        res.send(response);
+        res.redirect(`/?${querystring.stringify({ error: 'invalid token' })}`);
       }
     })
     .catch(error => {
@@ -99,10 +90,10 @@ app.get('/callback', (req, res) => {
 });
 
 /**
- * Refresh access token if expired
+ * Refresh the access token if it has expired
  */
 app.get('/refresh_token', (req, res) => {
-  const { refresh_token } = req.query;
+  const refresh_token = req.query.refresh_token;
 
   axios({
     method: 'post',
