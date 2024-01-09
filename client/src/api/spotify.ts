@@ -1,14 +1,11 @@
 import axios from 'axios';
 import { hasDurationTimePassed } from '../utils/time/time';
 
-interface localStorageAuth {
-  localAccessToken: string;
-  localRefreshToken: string;
-  tokenDuration: string;
-  tokenTimestamp: string;
+interface localStorage {
+  [key: string]: string;
 }
 
-const LOCALSTORAGE_KEYS: localStorageAuth = {
+const LOCALSTORAGE_KEYS: localStorage = {
   localAccessToken: 'spotify_access_token',
   localRefreshToken: 'spotify_refresh_token',
   tokenDuration: 'spotify_token_duration',
@@ -30,11 +27,10 @@ export const logout = () => {
   console.log('LOGGING OUT');
   // Clear all localStorage items
   for (const key in LOCALSTORAGE_KEYS) {
-    window.localStorage.removeItem(LOCALSTORAGE_KEYS[key as keyof localStorageAuth]);
+    window.localStorage.removeItem(LOCALSTORAGE_KEYS[key]);
   }
   // Navigate to homepage
-  // window.location = window.location.origin;
-  window.location.reload();
+  window.location.href = window.location.origin;
 };
 
 /**
@@ -46,6 +42,7 @@ const hasTokenExpired = () => {
   console.log('checking token expired');
   const { localAccessToken, tokenTimestamp, tokenDuration } = LOCALSTORAGE_VALUES;
   if (!localAccessToken || !tokenTimestamp || !tokenDuration) {
+    console.log('if in hasExpiredfunc');
     return false;
   }
 
@@ -64,7 +61,7 @@ const refreshAccessToken = async () => {
       Date.now() - Number(LOCALSTORAGE_VALUES.tokenTimestamp) / 1000 < 1000
     ) {
       console.error('No refresh token available');
-      // logout();
+      logout();
     }
 
     // Use `/refresh_token` endpoint from our Node app
@@ -83,6 +80,7 @@ const refreshAccessToken = async () => {
 };
 
 export const getAccessToken = () => {
+  console.log('getting access token');
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
 
@@ -131,8 +129,8 @@ export const getAccessToken = () => {
   }
 
   // fallback, should never get to this point
-  console.log('fallback reached');
-  return false;
+  console.error('getAccessToken end - NEED ELSE CASE');
+  return null;
 };
 
 export const accessToken = getAccessToken();

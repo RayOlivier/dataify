@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { accessToken } from './api/spotify';
+import { accessToken, logout } from './api/spotify';
 import './App.scss';
 
 function App() {
@@ -16,7 +16,10 @@ function App() {
           <a href="http://localhost:8080/login">Log in to Spotify</a>
         </div>
       ) : (
-        <div>Logged in</div>
+        <>
+          <div>Logged in</div>
+          <button onClick={logout}>Log out</button>
+        </>
       )}
     </>
   );
