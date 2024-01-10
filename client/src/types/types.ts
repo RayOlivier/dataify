@@ -1,3 +1,11 @@
+export interface Profile {
+  display_name: string;
+  followers?: {
+    total: number;
+  };
+  images: SpotifyImage[];
+}
+
 export interface AuthorizedUser {
   name: string;
   email: string;
