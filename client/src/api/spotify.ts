@@ -1,5 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { hasDurationTimePassed } from '../utils/time/time';
+import { TCurrentUserPlaylistData, TProfile, TUserTopItemsData, TUserTopItemsReq } from '../types/types';
+import queryString from 'query-string';
 
 interface localStorage {
   [key: string]: string;
@@ -145,7 +147,28 @@ axios.defaults.headers['Content-Type'] = 'application/json';
 
 /**
  * Get Current User's Profile
- * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-current-users-profile
+ * https://developer.spotify.com/documentation/web-api/reference/get-current-users-profile
  * @returns {Promise}
  */
-export const getCurrentUserProfile = () => axios.get('/me');
+export const getCurrentUserProfile = (): Promise<AxiosResponse<TProfile>> => axios.get('/me');
+
+/**
+ * Get a List of Current User's Playlists
+ * https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists
+ * @returns {Promise}
+ */
+export const getCurrentUserPlaylists = (limit = 20): Promise<AxiosResponse<TCurrentUserPlaylistData>> => {
+  return axios.get(`/me/playlists?limit=${limit}`);
+};
+
+/**
+ * Get a User's Top Artists or Tracks
+ * https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
+ * @param {string} time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Default: 'medium_term'
+ * @returns {Promise}
+ */
+export const getTopItems = ({ time_range, type, limit, offset }: TUserTopItemsReq): Promise<AxiosResponse<TUserTopItemsData>> => {
+  const params = queryString.stringify({ time_range, type, limit, offset });
+  console.log('params', params);
+  return axios.get(`/me/top/${type}?${params}`);
+};

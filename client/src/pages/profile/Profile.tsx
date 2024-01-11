@@ -1,18 +1,24 @@
 import { useState, useEffect } from 'react';
-import { getCurrentUserProfile } from '../../api/spotify';
+import { getCurrentUserPlaylists, getCurrentUserProfile } from '../../api/spotify';
 import { TProfile } from '../../types/types';
 import { Header } from '../../components';
 // import { getCurrentUserProfile } from '../spotify';
 
 const Profile = () => {
   const [profile, setProfile] = useState<TProfile | null>(null);
+  // const [playlists, setPlaylists] = useState<TCurrentUserPlaylistData | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await getCurrentUserProfile();
-        setProfile(data);
-        console.log(data);
+        const userProfile = await getCurrentUserProfile();
+        const fullProfile = userProfile.data;
+
+        const userPlaylists = await getCurrentUserPlaylists();
+        fullProfile.playlists = userPlaylists.data;
+
+        console.log('fullProfile', fullProfile);
+        setProfile(fullProfile);
       } catch (error) {
         console.error(error);
       }
@@ -21,18 +27,7 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  return (
-    <>
-      {profile && (
-        // <div>
-        //   <h1>{profile.display_name}</h1>
-        //   <p>{profile.followers?.total} Followers</p>
-        //   {profile.images.length && profile.images[0].url && <img src={profile.images[0].url} alt="Avatar" />}
-        // </div>
-        <Header profile={profile} />
-      )}
-    </>
-  );
+  return <>{profile && <Header profile={profile} />}</>;
 };
 
 export default Profile;

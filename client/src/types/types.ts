@@ -3,6 +3,9 @@ export interface TProfile {
   followers?: {
     total: number;
   };
+  playlists?: {
+    total: number;
+  };
   images: TSpotifyImage[];
 }
 
@@ -122,4 +125,28 @@ export interface TTrackAnalysis {
   speechiness: number;
   tempo: number;
   valence: number;
+}
+
+export interface TPaginatedSpotifyData {
+  href: string;
+  limit: number;
+  next: string;
+  offset: number;
+  previous: string | null;
+  total: number;
+}
+
+export interface TUserTopItemsReq {
+  type: 'artists' | 'tracks';
+  time_range?: 'short_term' | 'medium_term' | 'long_term';
+  limit?: number; // between 0 and 50
+  offset?: number;
+}
+
+export interface TUserTopItemsData extends TPaginatedSpotifyData {
+  items: TArtist[] | TTrack[];
+}
+
+export interface TCurrentUserPlaylistData extends TPaginatedSpotifyData {
+  items: TPlaylist[];
 }
