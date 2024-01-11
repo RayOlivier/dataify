@@ -1,12 +1,12 @@
-export interface Profile {
+export interface TProfile {
   display_name: string;
   followers?: {
     total: number;
   };
-  images: SpotifyImage[];
+  images: TSpotifyImage[];
 }
 
-export interface AuthorizedUser {
+export interface TAuthorizedUser {
   name: string;
   email: string;
   picture?: string | null;
@@ -16,64 +16,64 @@ export interface AuthorizedUser {
   expires_at: number;
 }
 
-export interface SpotifyImage {
+export interface TSpotifyImage {
   height: number;
   url: string;
   width: number;
 }
 
-export interface Category {
+export interface TCategory {
   id: string;
   name: string;
-  icons: SpotifyImage[];
+  icons: TSpotifyImage[];
 }
 
-export interface Album {
+export interface TAlbum {
   id: string;
   name: string;
-  artists: Artist[];
-  images: SpotifyImage[];
+  artists: TArtist[];
+  images: TSpotifyImage[];
   album_type?: string;
   release_date: string;
   tracks: {
     total: number;
-    items: Track[];
+    items: TTrack[];
   };
 }
 
-export interface Artist {
+export interface TArtist {
   id: string;
   name: string;
-  images: SpotifyImage[];
+  images: TSpotifyImage[];
   followers?: {
     total: number;
   };
   genres?: string[];
 }
 
-export interface Track {
+export interface TTrack {
   id: string;
   name: string;
-  album: Album;
-  artists: Artist[];
+  album: TAlbum;
+  artists: TArtist[];
   duration_ms: number;
   preview_url: string;
   href: string;
 }
 
-export interface PlaylistTrack {
+export interface TPlaylistTrack {
   added_at: string;
   added_by: string;
-  track: Track;
+  track: TTrack;
 }
 
-export interface Playlist {
+export interface TPlaylist {
   description?: string;
   id: string;
-  // followers: {
-  //   total: number;
-  // };
-  images: SpotifyImage[];
+  followers: {
+    total: number;
+  };
+  images: TSpotifyImage[];
   name: string;
   owner: {
     id: string;
@@ -81,36 +81,36 @@ export interface Playlist {
   };
   // items?: [{ added_at: string; track: Track }];
   tracks: {
-    items: PlaylistTrack[];
+    items: TPlaylistTrack[];
     total: number;
   };
   type: string;
   total?: number;
 }
 
-export interface PlaylistCard {
+export interface TPlaylistCard {
   description?: string;
   id: string;
-  images: SpotifyImage[];
+  images: TSpotifyImage[];
   name: string;
 }
 
-export interface SearchResults {
+export interface TSearchResults {
   albums?: {
-    items: Album[];
+    items: TAlbum[];
   };
   artists?: {
-    items: Artist[];
+    items: TArtist[];
   };
   playlists?: {
-    items: Playlist[];
+    items: TPlaylist[];
   };
   tracks?: {
-    items: Track[];
+    items: TTrack[];
   };
 }
 
-export interface TrackAnalysis {
+export interface TTrackAnalysis {
   acousticness: number;
   danceability: number;
   energy: number;
