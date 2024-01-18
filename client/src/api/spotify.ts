@@ -164,11 +164,13 @@ export const getCurrentUserPlaylists = (limit = 20): Promise<AxiosResponse<TCurr
 /**
  * Get a User's Top Artists or Tracks
  * https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
- * @param {string} time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Default: 'medium_term'
+ * @param TUserTopItemsReq
+ *
+ * time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Default: 'medium_term'
  * @returns {Promise}
  */
-export const getTopItems = ({ time_range, type, limit, offset }: TUserTopItemsReq): Promise<AxiosResponse<TUserTopItemsData>> => {
-  const params = queryString.stringify({ time_range, type, limit, offset });
+export const getTopItems = ({ type, time_range, limit, offset }: TUserTopItemsReq): Promise<AxiosResponse<TUserTopItemsData>> => {
+  const params = queryString.stringify({ time_range, limit, offset });
   console.log('params', params);
   return axios.get(`/me/top/${type}?${params}`);
 };
