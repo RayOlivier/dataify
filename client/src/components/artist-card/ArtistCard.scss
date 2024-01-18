@@ -1,0 +1,18 @@
+@import '../../index.scss';
+
+.artist-card {
+  background-color: $black_90;
+  min-width: 160px;
+  border-radius: 8px;
+  padding: 8px;
+
+  &__image {
+    margin-bottom: 16px;
+
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  }
+}
