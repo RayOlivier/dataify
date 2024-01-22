@@ -1,0 +1,27 @@
+@import '../../index.scss';
+
+.time-range-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  button {
+    background: transparent;
+    color: $white_70;
+    transition: all ease-in 100ms;
+
+    &:hover {
+      color: $white;
+    }
+  }
+  button.active {
+    color: $white;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      border-bottom: 2px solid $white;
+    }
+  }
+}
