@@ -4,7 +4,7 @@ import { TArtist, TPlaylist, TProfile, TTrack } from '../../types/types';
 import { ArtistCard, Header, PlaylistCard, TrackCard } from '../../components';
 import './Profile.scss';
 
-const Profile = () => {
+export const Profile = () => {
   const [profile, setProfile] = useState<TProfile | null>(null);
   const [topArtists, setTopArtists] = useState<TArtist[] | null>(null);
   const [topTracks, setTopTracks] = useState<TTrack[]>([]);
@@ -72,4 +72,3 @@ const Profile = () => {
   );
 };
 
-export default Profile;

@@ -4,7 +4,7 @@ import './App.scss';
 import { TProfile } from './types/types';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Login } from './components';
-import { Profile } from './pages';
+import { Profile, TopTracks } from './pages';
 import { TopArtists } from './pages/top-artists/TopArtists';
 
 function ScrollToTop() {
@@ -54,7 +54,7 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/top-artists" element={<TopArtists></TopArtists>}></Route>
-              <Route path="/top-tracks" element={<h1>Top Tracks</h1>}></Route>
+              <Route path="/top-tracks" element={<TopTracks></TopTracks>}></Route>
               <Route path="/playlists/:id" element={<h1>Playlist</h1>}></Route>
               <Route path="/playlists" element={<h1>PLaylists</h1>}></Route>
               <Route

@@ -3,7 +3,6 @@ import './TopArtists.scss';
 import { TArtist, TTimeRange } from '../../types/types';
 import { getTopItems } from '../../api/spotify';
 import { ArtistCard, TimeRangeButtons } from '../../components';
-// import { TimeRangeButtons } from '../../components/time-range-buttons/TimeRangeButtons';
 
 export const TopArtists = () => {
   const [topArtists, setTopArtists] = useState<TArtist[]>([]);
