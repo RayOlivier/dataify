@@ -136,9 +136,10 @@ export interface TPaginatedSpotifyData {
   total: number;
 }
 
+export type TTimeRange = 'short_term' | 'medium_term' | 'long_term';
 export interface TUserTopItemsReq {
   type: 'artists' | 'tracks';
-  time_range?: 'short_term' | 'medium_term' | 'long_term';
+  time_range?: TTimeRange;
   limit?: number; // between 0 and 50
   offset?: number;
 }
