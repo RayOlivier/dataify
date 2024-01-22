@@ -7,7 +7,7 @@ type TTimeRangeButtonProps = {
   setActiveRange: React.Dispatch<React.SetStateAction<TTimeRange>>;
 };
 
-const TimeRangeButtons: React.FC<TTimeRangeButtonProps> = ({ activeRange, setActiveRange }) => {
+export const TimeRangeButtons: React.FC<TTimeRangeButtonProps> = ({ activeRange, setActiveRange }) => {
   return (
     <ul className="time-range-buttons">
       <li>
@@ -28,5 +28,3 @@ const TimeRangeButtons: React.FC<TTimeRangeButtonProps> = ({ activeRange, setAct
     </ul>
   );
 };
-
-export default TimeRangeButtons;

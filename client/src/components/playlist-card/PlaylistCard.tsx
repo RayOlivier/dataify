@@ -6,7 +6,7 @@ type TPlaylistCardProps = {
   playlist: TPlaylist;
 };
 
-const PlaylistCard: React.FC<TPlaylistCardProps> = ({ playlist }) => {
+export const PlaylistCard: React.FC<TPlaylistCardProps> = ({ playlist }) => {
   const { name, images } = playlist;
   return (
     <li className="playlist-card">
@@ -19,5 +19,3 @@ const PlaylistCard: React.FC<TPlaylistCardProps> = ({ playlist }) => {
     </li>
   );
 };
-
-export default PlaylistCard;

@@ -8,7 +8,7 @@ type TTrackCardProps = {
   num?: number;
 };
 
-const TrackCard: React.FC<TTrackCardProps> = ({ track, num }) => {
+export const TrackCard: React.FC<TTrackCardProps> = ({ track, num }) => {
   return (
     <li className="track-card">
       <div className="track-card__left">
@@ -30,5 +30,3 @@ const TrackCard: React.FC<TTrackCardProps> = ({ track, num }) => {
     </li>
   );
 };
-
-export default TrackCard;

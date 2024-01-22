@@ -1,7 +1,7 @@
-export { default as ArtistCard } from './artist-card/ArtistCard';
-export { default as PlaylistCard } from './playlist-card/PlaylistCard';
-export { default as TrackCard } from './track-card/TrackCard';
-export { default as TimeRangeButtons } from './time-range-buttons/TimeRangeButtons';
+export * from './artist-card/ArtistCard';
+export * from './playlist-card/PlaylistCard';
+export * from './track-card/TrackCard';
+export * from './time-range-buttons/TimeRangeButtons';
 
-export { default as Login } from './login/Login';
-export { default as Header } from './header/Header';
+export * from './login/Login';
+export * from './header/Header';

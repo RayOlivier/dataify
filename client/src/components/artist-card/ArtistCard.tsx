@@ -7,7 +7,7 @@ type TArtistCardProps = {
   images?: TSpotifyImage[];
 };
 
-const ArtistCard: React.FC<TArtistCardProps> = ({ name, images }) => {
+export const ArtistCard: React.FC<TArtistCardProps> = ({ name, images }) => {
   return (
     <li className="artist-card">
       {images && images[0] && (
@@ -19,5 +19,3 @@ const ArtistCard: React.FC<TArtistCardProps> = ({ name, images }) => {
     </li>
   );
 };
-
-export default ArtistCard;

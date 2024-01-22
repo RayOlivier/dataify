@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './TopArtists.scss';
 import { TArtist, TTimeRange } from '../../types/types';
 import { getTopItems } from '../../api/spotify';

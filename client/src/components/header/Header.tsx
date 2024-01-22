@@ -7,7 +7,7 @@ type THeaderProps = {
   playlist?: TPlaylist;
 };
 
-const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
+export const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
   return (
     <div className="header">
       {profile ? (
@@ -47,5 +47,3 @@ const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
     </div>
   );
 };
-
-export default Header;
