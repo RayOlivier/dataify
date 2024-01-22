@@ -21,7 +21,6 @@ export const Profile = () => {
 
         const topArtists = await getTopItems({ type: 'artists', time_range: 'short_term' });
         const topTracks = await getTopItems({ type: 'tracks', time_range: 'short_term' });
-        console.log('topTracks', topTracks);
 
         setProfile(fullProfile);
         setTopArtists(topArtists.data.items as TArtist[]);
@@ -59,9 +58,9 @@ export const Profile = () => {
         </div>
       )}
       {playlists && (
-        <div className="section artists">
+        <div className="section playlists">
           <h2>Playlists</h2>
-          <ul className="artist-list">
+          <ul className="playlist-list">
             {playlists.map(playlist => (
               <PlaylistCard playlist={playlist} key={playlist.id}></PlaylistCard>
             ))}
@@ -71,4 +70,3 @@ export const Profile = () => {
     </div>
   );
 };
-

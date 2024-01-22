@@ -13,8 +13,6 @@ export const TopTracks = () => {
       try {
         const topTracks = await getTopItems({ type: 'tracks', time_range: activeRange });
 
-        console.log('topTracks', topTracks);
-
         setTopTracks(topTracks.data.items as TTrack[]);
       } catch (error) {
         console.error(error);
