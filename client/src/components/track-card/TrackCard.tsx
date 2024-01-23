@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { TTrack } from '../../types/types';
 import './TrackCard.scss';
 import { formatDuration } from '../../utils';
@@ -6,9 +6,10 @@ import { formatDuration } from '../../utils';
 type TTrackCardProps = {
   track: TTrack;
   num?: number;
+  children?: ReactNode;
 };
 
-export const TrackCard: React.FC<TTrackCardProps> = ({ track, num }) => {
+export const TrackCard: React.FC<TTrackCardProps> = ({ track, num, children }) => {
   return (
     <li className="track-card">
       <div className="track-card__left">
@@ -25,6 +26,8 @@ export const TrackCard: React.FC<TTrackCardProps> = ({ track, num }) => {
           </div>
         </span>
       </div>
+
+      {children && children}
 
       <div className="track-card__duration">{formatDuration(track.duration_ms)}</div>
     </li>
