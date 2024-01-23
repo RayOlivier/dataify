@@ -2,13 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const querystring = require('querystring');
 
+const path = require('path');
 const app = express();
 const axios = require('axios');
-const port = 8080;
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const FRONTEND_URI = process.env.FRONTEND_URI;
+const PORT = process.env.PORT || 8080;
+
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 /**
  * Generates a random string containing numbers and letters
@@ -26,20 +31,20 @@ const generateRandomString = length => {
 
 const stateKey = 'spotify_auth_state';
 
-app.get('/', (req, res) => {
-  const data = {
-    text: 'Hello World!'
-  };
-  res.json(data);
-});
+// app.get('/', (req, res) => {
+//   const data = {
+//     text: 'Hello World!'
+//   };
+//   res.json(data);
+// });
 
-app.get('/test', (req, res) => {
-  console.log('HIT TEST');
-  const data = {
-    text: 'Test successful!'
-  };
-  res.json(data);
-});
+// app.get('/test', (req, res) => {
+//   console.log('HIT TEST');
+//   const data = {
+//     text: 'Test successful!'
+//   };
+//   res.json(data);
+// });
 
 app.get('/login', (req, res) => {
   const state = generateRandomString(16);
@@ -79,7 +84,7 @@ app.get('/callback', (req, res) => {
         const queryParams = querystring.stringify({ access_token, refresh_token, expires_in });
 
         //redirect to react app && pass token in query params
-        res.redirect(`http://localhost:5173/?${queryParams}`);
+        res.redirect(`${FRONTEND_URI}/?${queryParams}`);
       } else {
         res.redirect(`/?${querystring.stringify({ error: 'invalid token' })}`);
       }
@@ -115,6 +120,11 @@ app.get('/refresh_token', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-  console.log(`Express app listening at  http://localhost:${port}`);
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`Express app listening at  http://localhost:${PORT}`);
 });
