@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { TPlaylist, TPlaylistTracks, TPlaylistTracksItem, TTrackAnalysis } from '../../types/types';
 import { getAudioFeaturesForTracks, getPlaylistById } from '../../api/spotify';
 import axios from 'axios';
-import { TrackCard } from '../../components';
+import { Loader, TrackCard } from '../../components';
 
 type TOptions = 'danceability' | 'tempo' | 'energy';
 
@@ -138,7 +138,7 @@ export const Playlist = () => {
             </div>
           </div>
           <main>
-            {tracks && (
+            {tracks ? (
               <div className="section tracks">
                 <h2>Tracks</h2>
                 <div>
@@ -162,6 +162,8 @@ export const Playlist = () => {
                   ))}
                 </ul>
               </div>
+            ) : (
+              <Loader />
             )}
           </main>
         </>

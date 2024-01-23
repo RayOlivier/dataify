@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './TopTracks.scss';
 import { TTimeRange, TTrack } from '../../types/types';
 import { getTopItems } from '../../api/spotify';
-import { TimeRangeButtons, TrackCard } from '../../components';
+import { Loader, TimeRangeButtons, TrackCard } from '../../components';
 
 export const TopTracks = () => {
   const [topTracks, setTopTracks] = useState<TTrack[]>([]);
@@ -26,7 +26,7 @@ export const TopTracks = () => {
     <main>
       <h2>Top Tracks </h2>
       <TimeRangeButtons activeRange={activeRange} setActiveRange={setActiveRange}></TimeRangeButtons>
-      {topTracks && (
+      {topTracks ? (
         <div className="tracks">
           <ul className="track-list">
             {topTracks.map(track => (
@@ -34,6 +34,8 @@ export const TopTracks = () => {
             ))}
           </ul>
         </div>
+      ) : (
+        <Loader />
       )}
     </main>
   );

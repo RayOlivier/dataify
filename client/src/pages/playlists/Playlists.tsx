@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TPlaylist, TPlaylistData } from '../../types/types';
 import { getCurrentUserPlaylists } from '../../api/spotify';
-import { PlaylistCard } from '../../components';
+import { Loader, PlaylistCard } from '../../components';
 import axios from 'axios';
 
 export const Playlists = () => {
@@ -51,7 +51,7 @@ export const Playlists = () => {
   return (
     <main>
       <h2>Playlists</h2>
-      {playlists && (
+      {playlists ? (
         <div className="section playlists">
           {playlists.length}
           <ul className="playlist-list">
@@ -60,6 +60,8 @@ export const Playlists = () => {
             ))}
           </ul>
         </div>
+      ) : (
+        <Loader />
       )}
     </main>
   );

@@ -33,7 +33,6 @@ function App() {
       }
     };
 
-    // TODO error catch HOF
     if (accessToken) {
       fetchData();
     }
