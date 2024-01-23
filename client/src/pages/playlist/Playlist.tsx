@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { TGeneralReq, TPlaylist, TPlaylistData, TPlaylistTracks, TPlaylistTracksItem, TTrack, TTrackAnalysis } from '../../types/types';
-import { getAudioFeaturesForTracks, getPlaylistById, getPlaylistTracksById } from '../../api/spotify';
+import { TPlaylist, TPlaylistTracks, TPlaylistTracksItem, TTrackAnalysis } from '../../types/types';
+import { getAudioFeaturesForTracks, getPlaylistById } from '../../api/spotify';
 import axios from 'axios';
 import { TrackCard } from '../../components';
 
+type TOptions = 'danceability' | 'tempo' | 'energy';
+
 export const Playlist = () => {
   const { id } = useParams();
+
+  const [sortValue, setSortValue] = useState<TOptions | ''>('');
+  const sortOptions: TOptions[] = ['danceability', 'tempo', 'energy'];
 
   const [playlist, setPlaylist] = useState<TPlaylist | null>(null);
   const [tracksData, setTracksData] = useState<TPlaylistTracks | null>(null);
@@ -21,99 +26,93 @@ export const Playlist = () => {
         const { data } = await getPlaylistById(id);
         setPlaylist(data);
         setTracksData(data.tracks);
-        console.log('data', data);
-
-        // setTracks(data.tracks.items);
       } catch (error) {
         console.error(error);
       }
     };
-    // "https://api.spotify.com/v1/playlists/3pENYVTMuevP3CLjzQkDpQ/tracks?offset=100&limit=100&locale=en-US%2Cen%3Bq%3D0.9"
 
     if (id) {
       fetchData(id);
     }
   }, [id]);
 
+  // When tracksData updates, compile arrays of tracks and audioFeatures
   useEffect(() => {
-    console.log('MORE DATA GO');
-    const tracks: TPlaylistTracksItem[] = [];
-    const fetchMoreData = async ({ id, offset, limit }: TGeneralReq, final: boolean) => {
-      console.log('fetching??');
+    if (!tracksData) {
+      return;
+    }
+
+    // When tracksData updates, check if there are more tracks to fetch
+    // then update the state variable
+    const fetchMoreData = async () => {
+      if (tracksData.next) {
+        try {
+          const { data } = await axios.get(tracksData.next);
+          setTracksData(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    setTracks(tracks => [...(tracks ? tracks : []), ...tracksData.items]);
+
+    fetchMoreData();
+
+    // Also update the audioFeatures state variable using the track IDs
+    const fetchAudioFeatures = async () => {
+      const ids = tracksData.items.map(({ track }) => track.id).join(',');
       try {
-        const { data } = await getPlaylistTracksById({ id, offset, limit });
-        // setTracksData(data);
-        console.log('data', data);
-        tracks.push(...data.items);
-        console.log('*****data', data);
-        console.log('tracks', tracks);
-        // if (final) {
-        //   console.log('done!!!!!!!!!!!');
-        //   setTracks(tracks);
-        // }
-        setTracks(tracks);
+        const { data } = await getAudioFeaturesForTracks(ids);
+        setAudioFeatures(audioFeatures => [...(audioFeatures ? audioFeatures : []), ...data.audio_features]);
       } catch (error) {
         console.error(error);
       }
     };
+    fetchAudioFeatures();
+  }, [tracksData]);
 
-    if (playlist?.tracks) {
-      console.log('hi');
-      const { limit, total } = playlist.tracks;
-      const totalPages = total / limit;
-      console.log('totalPages', totalPages);
-      console.log('limit, total', limit, total);
-
-      for (let i = 0; i < totalPages; i++) {
-        console.log('i', i);
-        fetchMoreData({ limit, id: playlist.id, offset: i * limit }, !(i + 1 < totalPages));
-      }
+  // Map over tracks and add audio_features property to each track
+  const tracksWithAudioFeatures = useMemo(() => {
+    if (!tracks || !audioFeatures) {
+      return null;
     }
 
-    // return () => {
-    //   second
-    // }
-    console.log('tracks', tracks);
-  }, [playlist]);
+    return tracks.map(({ track }) => {
+      const trackToAdd = track;
 
-  // When tracksData updates, compile arrays of tracks and audioFeatures
-  // useEffect(() => {
-  //   if (!tracksData) {
-  //     return;
-  //   }
+      if (!track.audio_features) {
+        const audioFeaturesObj = audioFeatures.find(item => {
+          if (!item || !track) {
+            return null;
+          }
+          return item.id === track.id;
+        });
 
-  //   // When tracksData updates, check if there are more tracks to fetch
-  //   // then update the state variable
-  //   const fetchMoreData = async () => {
-  //     console.log('tracks?.length', tracks?.length);
-  //     console.log('tracksData.offset', tracksData.offset);
-  //     if (tracksData.next && (!tracks?.length || tracksData.offset < tracks?.length)) {
-  //       try {
-  //         const { data } = await axios.get(tracksData.next);
-  //         setTracksData(data);
-  //       } catch (error) {
-  //         console.error(error);
-  //       }
-  //     }
-  //   };
+        trackToAdd['audio_features'] = audioFeaturesObj;
+      }
 
-  //   setTracks(tracks => [...(tracks ? tracks : []), ...tracksData.items]);
+      return trackToAdd;
+    });
+  }, [tracks, audioFeatures]);
 
-  //   console.log('tracksData', tracksData);
-  //   fetchMoreData();
+  // Sort tracks by audio feature to be used in template
+  const sortedTracks = useMemo(() => {
+    if (!tracksWithAudioFeatures) {
+      return null;
+    }
 
-  //   // Also update the audioFeatures state variable using the track IDs
-  //   const fetchAudioFeatures = async () => {
-  //     // const ids = tracksData.items.map(({ track }) => track.id).join(',');
-  //     // try {
-  //     //   const { data } = await getAudioFeaturesForTracks(ids);
-  //     //   setAudioFeatures(audioFeatures => [...(audioFeatures ? audioFeatures : []), ...data['audio_features']]);
-  //     // } catch (error) {
-  //     //   console.error(error);
-  //     // }
-  //   };
-  //   fetchAudioFeatures();
-  // }, [tracksData]);
+    return [...tracksWithAudioFeatures].sort((a, b) => {
+      const aFeatures = a['audio_features'];
+      const bFeatures = b['audio_features'];
+
+      if (!aFeatures || !bFeatures || !sortValue) {
+        return 0;
+      }
+
+      return bFeatures[sortValue] - aFeatures[sortValue];
+    });
+  }, [sortValue, tracksWithAudioFeatures]);
 
   return (
     <>
@@ -142,9 +141,24 @@ export const Playlist = () => {
             {tracks && (
               <div className="section tracks">
                 <h2>Tracks</h2>
+                <div>
+                  <label className="sr-only" htmlFor="order-select">
+                    Sort tracks
+                  </label>
+                  <select name="track-order" id="order-select" onChange={e => setSortValue(e.target.value as TOptions)}>
+                    <option value="">Sort tracks</option>
+                    {sortOptions.map((option, i) => (
+                      <option value={option} key={i}>
+                        {`${option.charAt(0).toUpperCase()}${option.slice(1)}`}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                 <ul className="track-list">
-                  {tracks.map((item, i) => (
-                    <TrackCard track={item.track} num={i + 1} key={item.track.id}></TrackCard>
+                  {sortedTracks?.map((item, i) => (
+                    <TrackCard track={item} num={i + 1} key={item.id}>
+                      {/* {sortValue && item.audio_features && <span>{`${sortValue}: ${item.audio_features[sortValue]}`}</span>} */}
+                    </TrackCard>
                   ))}
                 </ul>
               </div>

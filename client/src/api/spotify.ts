@@ -1,6 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
 import { hasDurationTimePassed } from '../utils/time/time';
-import { TCurrentUserPlaylistData, TGeneralReq, TPlaylist, TPlaylistTracks, TProfile, TTrackAnalysis, TUserTopItemsData, TUserTopItemsReq } from '../types/types';
+import {
+  TAudioFeaturesData,
+  TCurrentUserPlaylistData,
+  TGeneralReq,
+  TPlaylist,
+  TPlaylistTracks,
+  TProfile,
+  TUserTopItemsData,
+  TUserTopItemsReq
+} from '../types/types';
 import queryString from 'query-string';
 
 interface localStorage {
@@ -187,8 +196,7 @@ export const getPlaylistById = (playlist_id: string): Promise<AxiosResponse<TPla
  */
 export const getPlaylistTracksById = ({ id, offset, limit }: TGeneralReq): Promise<AxiosResponse<TPlaylistTracks>> => {
   const params = queryString.stringify({ limit, offset });
-  console.log('params', params);
-  console.log('`/playlists/${id}/tracks&${params}`', `/playlists/${id}/tracks&${params}`);
+
   return axios.get(`/playlists/${id}/tracks?&${params}`);
 };
 
@@ -198,6 +206,6 @@ export const getPlaylistTracksById = ({ id, offset, limit }: TGeneralReq): Promi
  * @param {string} ids - A comma-separated list of the Spotify IDs for the tracks
  */
 
-export const getAudioFeaturesForTracks = (ids: string): Promise<AxiosResponse<TTrackAnalysis[]>> => {
+export const getAudioFeaturesForTracks = (ids: string): Promise<AxiosResponse<TAudioFeaturesData>> => {
   return axios.get(`/audio-features?ids=${ids}`);
 };

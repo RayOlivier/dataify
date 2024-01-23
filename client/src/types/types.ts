@@ -62,6 +62,7 @@ export interface TTrack {
   duration_ms: number;
   preview_url: string;
   href: string;
+  audio_features?: TTrackAnalysis;
 }
 
 export interface TPlaylistTracksItem {
@@ -121,8 +122,11 @@ export interface TSearchResults {
 
 export interface TTrackAnalysis {
   acousticness: number;
+  analysis_url: string;
   danceability: number;
+  duration_ms: number;
   energy: number;
+  id: string;
   instrumentalness: number;
   key: number;
   liveness: number;
@@ -160,7 +164,6 @@ export interface TUserTopItemsData extends TPaginatedSpotifyData {
   items: TArtist[] | TTrack[];
 }
 
-
 export interface TCurrentUserPlaylistData extends TPaginatedSpotifyData {
   items: TPlaylist[];
 }
@@ -168,6 +171,10 @@ export interface TCurrentUserPlaylistData extends TPaginatedSpotifyData {
 // export interface TPlaylistData extends TPaginatedSpotifyData {
 //   items: TPlaylist[];
 // }
+
+export interface TAudioFeaturesData {
+  audio_features: TTrackAnalysis[];
+}
 
 export interface TPlaylistData extends TPaginatedSpotifyData {
   items: TPlaylist[];
