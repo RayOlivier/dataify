@@ -64,10 +64,20 @@ export interface TTrack {
   href: string;
 }
 
-export interface TPlaylistTrack {
+export interface TPlaylistTracksItem {
   added_at: string;
   added_by: string;
   track: TTrack;
+}
+
+export interface TPlaylistTracks {
+  items: TPlaylistTracksItem[];
+  total: number;
+  href: string;
+  limit: number;
+  next: string;
+  offset: number;
+  previous: string | null;
 }
 
 export interface TPlaylist {
@@ -82,11 +92,7 @@ export interface TPlaylist {
     id: string;
     display_name?: string;
   };
-  // items?: [{ added_at: string; track: Track }];
-  tracks: {
-    items: TPlaylistTrack[];
-    total: number;
-  };
+  tracks: TPlaylistTracks;
   type: string;
   total?: number;
 }
@@ -144,10 +150,29 @@ export interface TUserTopItemsReq {
   offset?: number;
 }
 
+export interface TGeneralReq {
+  id?: string;
+  limit?: number; // between 0 and 50
+  offset?: number;
+}
+
 export interface TUserTopItemsData extends TPaginatedSpotifyData {
   items: TArtist[] | TTrack[];
 }
 
+
 export interface TCurrentUserPlaylistData extends TPaginatedSpotifyData {
   items: TPlaylist[];
 }
+
+// export interface TPlaylistData extends TPaginatedSpotifyData {
+//   items: TPlaylist[];
+// }
+
+// export interface TPlaylistData extends TPaginatedSpotifyData {
+//   items: TPlaylist[];
+// }
+
+// export interface TPlaylistTracksData extends TPaginatedSpotifyData {
+//   // items: { tracks: TPlaylistTrack[] };
+// }
