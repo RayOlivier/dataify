@@ -169,9 +169,9 @@ export interface TCurrentUserPlaylistData extends TPaginatedSpotifyData {
 //   items: TPlaylist[];
 // }
 
-// export interface TPlaylistData extends TPaginatedSpotifyData {
-//   items: TPlaylist[];
-// }
+export interface TPlaylistData extends TPaginatedSpotifyData {
+  items: TPlaylist[];
+}
 
 // export interface TPlaylistTracksData extends TPaginatedSpotifyData {
 //   // items: { tracks: TPlaylistTrack[] };
