@@ -5,7 +5,7 @@ import { getTopItems } from '../../api/spotify';
 import { ArtistCard, Loader, TimeRangeButtons } from '../../components';
 
 export const TopArtists = () => {
-  const [topArtists, setTopArtists] = useState<TArtist[]>([]);
+  const [topArtists, setTopArtists] = useState<TArtist[] | null>(null);
   const [activeRange, setActiveRange] = useState<TTimeRange>('medium_term');
 
   useEffect(() => {

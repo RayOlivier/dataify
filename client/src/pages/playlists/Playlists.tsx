@@ -4,8 +4,10 @@ import { getCurrentUserPlaylists } from '../../api/spotify';
 import { Loader, PlaylistCard } from '../../components';
 import axios from 'axios';
 
+import './Playlists.scss';
+
 export const Playlists = () => {
-  const [playlists, setPlaylists] = useState<TPlaylist[]>([]);
+  const [playlists, setPlaylists] = useState<TPlaylist[] | null>(null);
   const [playlistsData, setPlaylistsData] = useState<TPlaylistData | null>(null);
 
   useEffect(() => {

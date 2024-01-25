@@ -3,9 +3,10 @@ import './TopTracks.scss';
 import { TTimeRange, TTrack } from '../../types/types';
 import { getTopItems } from '../../api/spotify';
 import { Loader, TimeRangeButtons, TrackCard } from '../../components';
+import './TopTracks.scss';
 
 export const TopTracks = () => {
-  const [topTracks, setTopTracks] = useState<TTrack[]>([]);
+  const [topTracks, setTopTracks] = useState<TTrack[] | null>(null);
   const [activeRange, setActiveRange] = useState<TTimeRange>('medium_term');
 
   useEffect(() => {
