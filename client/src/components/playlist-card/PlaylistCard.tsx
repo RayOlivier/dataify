@@ -11,7 +11,7 @@ export const PlaylistCard: React.FC<TPlaylistCardProps> = ({ playlist }) => {
   const { name, images } = playlist;
   return (
     <li className="playlist-card">
-      <Link className="grid__item__inner" to={`/playlists/${playlist.id}`}>
+      <Link to={`/playlists/${playlist.id}`}>
         {images && images[0] && (
           <div className="playlist-card__image">
             <img src={images[0].url} alt="" />

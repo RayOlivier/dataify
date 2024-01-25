@@ -1,6 +1,14 @@
 @import './styles/reset.scss';
 @import './styles/variables.scss';
 
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

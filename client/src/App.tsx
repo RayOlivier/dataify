@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { accessToken, logout, getCurrentUserProfile } from './api/spotify';
+import { accessToken, getCurrentUserProfile } from './api/spotify';
 import './App.scss';
 import { TProfile } from './types/types';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { Login } from './components';
-import { Playlist, Playlists, Profile, TopTracks } from './pages';
+import { Nav } from './components';
+import { Landing, Playlist, Playlists, Profile, TopTracks } from './pages';
 import { TopArtists } from './pages/top-artists/TopArtists';
 
 function ScrollToTop() {
@@ -41,16 +41,12 @@ function App() {
   return (
     <>
       {!token ? (
-        <Login></Login>
+        <Landing />
       ) : (
         <>
-          <nav>
-            <button className="logout" onClick={logout}>
-              Log Out
-            </button>
-          </nav>
           <Router>
             <ScrollToTop />
+            <Nav></Nav>
             <Routes>
               <Route path="/top-artists" element={<TopArtists></TopArtists>}></Route>
               <Route path="/top-tracks" element={<TopTracks></TopTracks>}></Route>
