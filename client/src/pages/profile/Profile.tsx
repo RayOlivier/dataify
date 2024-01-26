@@ -19,8 +19,8 @@ export const Profile = () => {
         const userPlaylists = await getCurrentUserPlaylists();
         fullProfile.playlists = userPlaylists.data;
 
-        const topArtists = await getTopItems({ type: 'artists', time_range: 'short_term' });
-        const topTracks = await getTopItems({ type: 'tracks', time_range: 'short_term' });
+        const topArtists = await getTopItems({ type: 'artists', limit: 10, time_range: 'short_term' });
+        const topTracks = await getTopItems({ type: 'tracks', limit: 20, time_range: 'short_term' });
 
         setProfile(fullProfile);
         setTopArtists(topArtists.data.items as TArtist[]);

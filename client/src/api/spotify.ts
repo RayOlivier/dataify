@@ -164,7 +164,7 @@ export const getCurrentUserProfile = (): Promise<AxiosResponse<TProfile>> => axi
  * Get a List of Current User's Playlists
  * https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists
  */
-export const getCurrentUserPlaylists = (limit = 20): Promise<AxiosResponse<TCurrentUserPlaylistData>> => {
+export const getCurrentUserPlaylists = (limit = 50): Promise<AxiosResponse<TCurrentUserPlaylistData>> => {
   return axios.get(`/me/playlists?limit=${limit}`);
 };
 
@@ -175,7 +175,7 @@ export const getCurrentUserPlaylists = (limit = 20): Promise<AxiosResponse<TCurr
  *
  * time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Default: 'medium_term'
  */
-export const getTopItems = ({ type, time_range, limit, offset }: TUserTopItemsReq): Promise<AxiosResponse<TUserTopItemsData>> => {
+export const getTopItems = ({ type, time_range, limit = 50, offset }: TUserTopItemsReq): Promise<AxiosResponse<TUserTopItemsData>> => {
   const params = queryString.stringify({ time_range, limit, offset });
   return axios.get(`/me/top/${type}?${params}`);
 };
@@ -194,7 +194,7 @@ export const getPlaylistById = (playlist_id: string): Promise<AxiosResponse<TPla
  * https://developer.spotify.com/documentation/web-api/reference/get-playlist
  * @param {string} playlist_id - The Spotify ID for the playlist.
  */
-export const getPlaylistTracksById = ({ id, offset, limit }: TGeneralReq): Promise<AxiosResponse<TPlaylistTracks>> => {
+export const getPlaylistTracksById = ({ id, offset, limit = 50 }: TGeneralReq): Promise<AxiosResponse<TPlaylistTracks>> => {
   const params = queryString.stringify({ limit, offset });
 
   return axios.get(`/playlists/${id}/tracks?&${params}`);
