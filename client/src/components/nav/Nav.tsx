@@ -1,4 +1,3 @@
-import React from 'react';
 import { logout } from '../../api/spotify';
 import { NavLink } from 'react-router-dom';
 import { PiMicrophoneStageFill, PiMusicNotesFill, PiPlaylistFill, PiSignOut, PiUserFill } from 'react-icons/pi';
