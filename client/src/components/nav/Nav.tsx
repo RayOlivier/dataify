@@ -5,38 +5,39 @@ import { PiMicrophoneStageFill, PiMusicNotesFill, PiPlaylistFill, PiSignOut, PiU
 import './Nav.scss';
 
 export const Nav = () => {
+  const iconSize = '24px';
   return (
     <nav className="nav">
       <ul className="nav-menu">
         <li className="nav-item">
           <NavLink to="/">
-            <PiUserFill />
+            <PiUserFill size={iconSize} />
             <div className="nav-item__name">Profile</div>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/playlists">
-            <PiPlaylistFill />
+            <PiPlaylistFill size={iconSize} />
 
             <div className="nav-item__name">Playlists</div>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/top-artists">
-            <PiMicrophoneStageFill />
+            <PiMicrophoneStageFill size={iconSize} />
 
             <div className="nav-item__name">Top Artists</div>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/top-tracks">
-            <PiMusicNotesFill />
+            <PiMusicNotesFill size={iconSize} />
             <div className="nav-item__name">Top Tracks</div>
           </NavLink>
         </li>
         <li className="nav-item">
           <div className="nav-item__container" onClick={logout}>
-            <PiSignOut />
+            <PiSignOut size={iconSize} />
             <div className="nav-item__name">Log Out</div>
           </div>
         </li>

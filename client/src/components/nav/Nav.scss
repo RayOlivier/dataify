@@ -4,6 +4,11 @@
   background: $pure_black;
   height: 100px;
   width: 100%;
+  font-size: $font_sm;
+
+  @media (min-width: $tablet) {
+    font-size: $font_md;
+  }
 
   .nav-menu {
     height: 100%;
@@ -14,7 +19,13 @@
 
   .nav-item {
     height: 100%;
-    flex-grow: 1;
+    // flex-grow: 1;
+    flex: 1 1 0;
+    width: 0;
+
+    .nav-item__name {
+      padding-top: 8px;
+    }
 
     a,
     .nav-item__container {
