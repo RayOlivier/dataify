@@ -57,7 +57,7 @@ export const Playlists = () => {
       <h2>Playlists</h2>
       {playlists ? (
         <div className="section playlists">
-          {playlists.length}
+          {/* {playlists.length} */}
           <ul className="playlist-list">
             {playlists.map(playlist => (
               <PlaylistCard playlist={playlist} key={playlist.name + playlist.id}></PlaylistCard>
