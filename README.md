@@ -12,11 +12,11 @@ Axios
 OAuth
 
 ## Screenshots
-<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/profile.png" width="200">
-<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/playlists.png" width="200">
-<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/playlist.png" width="200">
-<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/artists.png" width="200">
-<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/tracks.png" width="200">
+<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/profile.png" width="300">
+<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/playlists.png" width="300">
+<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/playlist.png" width="300">
+<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/artists.png" width="300">
+<img src="https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/tracks.png" width="300">
 
 
 ## Running Locally
