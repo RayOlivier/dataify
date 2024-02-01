@@ -31,25 +31,10 @@ const generateRandomString = length => {
 
 const stateKey = 'spotify_auth_state';
 
-// app.get('/', (req, res) => {
-//   const data = {
-//     text: 'Hello World!'
-//   };
-//   res.json(data);
-// });
-
-// app.get('/test', (req, res) => {
-//   console.log('HIT TEST');
-//   const data = {
-//     text: 'Test successful!'
-//   };
-//   res.json(data);
-// });
-
 app.get('/login', (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
-  const scope = ['user-read-private', 'user-read-email', 'user-top-read', 'playlist-read-collaborative', 'playlist-read-private'].join(' ');
+  const scope = ['user-top-read', 'playlist-read-collaborative', 'playlist-read-private'].join(' ');
 
   const queryParams = querystring.stringify({
     client_id: CLIENT_ID,
