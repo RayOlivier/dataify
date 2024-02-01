@@ -22,7 +22,7 @@ export const TrackCard: React.FC<TTrackCardProps> = ({ track, num, children }) =
         <span className="track-card__info">
           <div className="track-card__title">{track.name}</div>
           <div className="track-card__subtitle">
-            <span className="track-card__artists">{track.artists.map(artist => artist.name)}</span> | {track.album.name}
+            <span className="track-card__artists">{track.artists.map(artist => artist.name)}</span> - {track.album.name}
           </div>
         </span>
       </div>

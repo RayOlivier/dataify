@@ -83,6 +83,9 @@ export interface TPlaylistTracks {
 
 export interface TPlaylist {
   description?: string;
+  external_urls: {
+    spotify: string;
+  };
   id: string;
   followers: {
     total: number;

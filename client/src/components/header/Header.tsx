@@ -1,6 +1,8 @@
 import React from 'react';
 import { TPlaylist, TProfile } from '../../types/types';
 import './Header.scss';
+import { SpotifyButton } from '../spotify-button/SpotifyButton';
+import { SpotifyLogo } from '../spotify-logo/SpotifyLogo';
 
 type THeaderProps = {
   profile?: TProfile;
@@ -15,8 +17,11 @@ export const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
           {profile.images.length && profile.images[0].url && (
             <img className="header__img header__img--profile" src={profile.images[profile.images.length - 1].url} alt="Avatar" />
           )}
-          <div>
-            <div className="header__overline">Profile</div>
+          <div className="header__text">
+            <div style={{ width: '80px' }}>
+              <SpotifyLogo></SpotifyLogo>
+            </div>
+            {/* <div className="header__overline">Profile</div> */}
             <h1 className="header__name">{profile.display_name}</h1>
             <p className="header__meta">
               {profile.playlists && (
@@ -33,7 +38,7 @@ export const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
       ) : playlist ? (
         <div className="header__inner">
           {playlist.images.length && playlist.images[0].url && <img className="header__img" src={playlist.images[0].url} alt="Avatar" />}
-          <div>
+          <div className="header__text">
             <div className="header__overline">playlist</div>
             <h1 className="header__name">{playlist.name}</h1>
             <p className="header__meta">
@@ -41,6 +46,9 @@ export const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
                 {playlist.followers.total} Follower{playlist.followers.total !== 1 ? 's' : ''}
               </span>
             </p>
+            {/* <span> */}
+            <SpotifyButton destination={playlist.external_urls.spotify}></SpotifyButton>
+            {/* </span> */}
           </div>
         </div>
       ) : (

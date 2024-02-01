@@ -26,6 +26,10 @@
     z-index: -1;
   }
 
+  .header__text {
+    text-align: left;
+  }
+
   .header__inner {
     display: flex;
     align-items: flex-end;
@@ -73,7 +77,7 @@
   .header__meta {
     display: flex;
     align-items: center;
-    font-size: $font_md;
+    font-size: $font_sm;
     color: $white_70;
     margin: 0;
 

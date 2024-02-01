@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './TopArtists.scss';
 import { TArtist, TTimeRange } from '../../types/types';
 import { getTopItems } from '../../api/spotify';
-import { ArtistCard, Loader, TimeRangeButtons } from '../../components';
+import { ArtistCard, Loader, SpotifyLogo, TimeRangeButtons } from '../../components';
 
 export const TopArtists = () => {
   const [topArtists, setTopArtists] = useState<TArtist[] | null>(null);
@@ -25,8 +25,11 @@ export const TopArtists = () => {
   }, [activeRange]);
 
   return (
-    <main>
-      <h2>Top Artists </h2>
+    <main className="top-artists">
+      <div style={{ width: '100px', margin: 'auto' }}>
+        <SpotifyLogo></SpotifyLogo>
+      </div>
+      <h2>Top Artists</h2>
       <TimeRangeButtons activeRange={activeRange} setActiveRange={setActiveRange}></TimeRangeButtons>
       {topArtists ? (
         <div className="artists">

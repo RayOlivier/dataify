@@ -41,6 +41,8 @@
 
   &__title {
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__subtitle {

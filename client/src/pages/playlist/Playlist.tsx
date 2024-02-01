@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { TPlaylist, TPlaylistTracks, TPlaylistTracksItem, TTrackAnalysis } from '../../types/types';
 import { getAudioFeaturesForTracks, getPlaylistById } from '../../api/spotify';
 import axios from 'axios';
-import { Loader, TrackCard } from '../../components';
+import { Header, Loader, TrackCard } from '../../components';
 
 type TOptions = 'danceability' | 'tempo' | 'energy';
 
@@ -118,25 +118,8 @@ export const Playlist = () => {
     <>
       {playlist && (
         <>
-          <div className="header">
-            <div className="header__inner">
-              {playlist.images.length && playlist.images[0].url && <img className="header__img" src={playlist.images[0].url} alt="Playlist Artwork" />}
-              <div>
-                <div className="header__overline">Playlist</div>
-                <h2 className="header__name">{playlist.name}</h2>
-                <p className="header__meta">
-                  {playlist.followers.total ? (
-                    <span>
-                      {playlist.followers.total} {`follower${playlist.followers.total !== 1 ? 's' : ''}`}
-                    </span>
-                  ) : null}
-                  <span>
-                    {playlist.tracks.total} {`song${playlist.tracks.total !== 1 ? 's' : ''}`}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
+          <Header playlist={playlist}></Header>
+
           <main>
             {tracks ? (
               <div className="section tracks">
@@ -156,9 +139,7 @@ export const Playlist = () => {
                 </div>
                 <ul className="track-list">
                   {sortedTracks?.map((item, i) => (
-                    <TrackCard track={item} num={i + 1} key={item.id}>
-                      {/* {sortValue && item.audio_features && <span>{`${sortValue}: ${item.audio_features[sortValue]}`}</span>} */}
-                    </TrackCard>
+                    <TrackCard track={item} num={i + 1} key={item.id}></TrackCard>
                   ))}
                 </ul>
               </div>

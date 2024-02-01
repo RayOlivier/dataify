@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TPlaylist, TPlaylistData } from '../../types/types';
 import { getCurrentUserPlaylists } from '../../api/spotify';
-import { Loader, PlaylistCard } from '../../components';
+import { Loader, PlaylistCard, SpotifyLogo } from '../../components';
 import axios from 'axios';
 
 import './Playlists.scss';
@@ -52,6 +52,9 @@ export const Playlists = () => {
 
   return (
     <main>
+      <div style={{ width: '100px', margin: 'auto' }}>
+        <SpotifyLogo></SpotifyLogo>
+      </div>
       <h2>Playlists</h2>
       {playlists ? (
         <div className="section playlists">

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './TopTracks.scss';
 import { TTimeRange, TTrack } from '../../types/types';
 import { getTopItems } from '../../api/spotify';
-import { Loader, TimeRangeButtons, TrackCard } from '../../components';
+import { Loader, SpotifyLogo, TimeRangeButtons, TrackCard } from '../../components';
 import './TopTracks.scss';
 
 export const TopTracks = () => {
@@ -25,7 +25,11 @@ export const TopTracks = () => {
 
   return (
     <main>
-      <h2>Top Tracks </h2>
+      <div style={{ width: '100px', margin: 'auto' }}>
+        <SpotifyLogo></SpotifyLogo>
+      </div>
+      <h2>Top Tracks</h2>
+
       <TimeRangeButtons activeRange={activeRange} setActiveRange={setActiveRange}></TimeRangeButtons>
       {topTracks ? (
         <div className="tracks">
