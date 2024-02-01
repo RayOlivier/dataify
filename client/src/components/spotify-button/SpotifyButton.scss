@@ -1,0 +1,25 @@
+@import '../../index.scss';
+
+.spotify-button {
+  height: 25px;
+  padding: 2px 4px;
+  margin: 4px 0;
+  width: fit-content;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  color: $white;
+
+  display: flex;
+  align-items: center;
+
+  &__logo {
+    height: 100%;
+    min-height: 21px;
+    margin-right: 8px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
