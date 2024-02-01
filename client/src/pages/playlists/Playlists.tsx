@@ -32,7 +32,6 @@ export const Playlists = () => {
     }
 
     const fetchMoreData = async () => {
-      console.log('fetching more!');
       if (playlistsData.next) {
         try {
           const { data } = await axios.get(playlistsData.next);

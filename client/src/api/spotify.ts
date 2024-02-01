@@ -35,7 +35,6 @@ const LOCALSTORAGE_VALUES = {
  * @returns {void}
  */
 export const logout = () => {
-  console.log('LOGGING OUT');
   // Clear all localStorage items
   for (const key in LOCALSTORAGE_KEYS) {
     window.localStorage.removeItem(LOCALSTORAGE_KEYS[key]);
@@ -50,20 +49,15 @@ export const logout = () => {
  * @returns {boolean} Whether or not the access token in localStorage has expired
  */
 const hasTokenExpired = () => {
-  console.log('checking token expired');
   const { localAccessToken, tokenTimestamp, tokenDuration } = LOCALSTORAGE_VALUES;
   if (!localAccessToken || !tokenTimestamp || !tokenDuration) {
-    console.log('if in hasExpiredfunc');
     return false;
   }
 
-  console.log('hasTokenExpired?', hasDurationTimePassed(Date.now(), Number(tokenTimestamp), Number(tokenDuration)));
-  // return Date.now() - Number(tokenTimestamp) > Number(tokenDuration) * 1000;
   return hasDurationTimePassed(Date.now(), Number(tokenTimestamp), Number(tokenDuration));
 };
 
 const refreshAccessToken = async () => {
-  console.log('refreshing token');
   try {
     // Logout if there's no refresh token stored or we've managed to get into a reload infinite loop
     if (
@@ -78,7 +72,6 @@ const refreshAccessToken = async () => {
     // Use `/refresh_token` endpoint from our Node app
     const { data } = await axios.get(`/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.localRefreshToken}`);
 
-    console.log('updating vals');
     // Update localStorage values
     window.localStorage.setItem(LOCALSTORAGE_KEYS.localAccessToken, data.access_token);
     window.localStorage.setItem(LOCALSTORAGE_KEYS.tokenTimestamp, String(Date.now()));
@@ -91,7 +84,6 @@ const refreshAccessToken = async () => {
 };
 
 export const getAccessToken = () => {
-  console.log('getting access token');
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
 
@@ -116,23 +108,19 @@ export const getAccessToken = () => {
 
   // use accessToken in local storage if it exists
   if (LOCALSTORAGE_VALUES.localAccessToken && LOCALSTORAGE_VALUES.localAccessToken !== 'undefined') {
-    console.log('returning existing token');
     return LOCALSTORAGE_VALUES.localAccessToken;
   }
 
   // If there is an access token in the URL query params, user is logging in for the first time
   if (queryParams[LOCALSTORAGE_KEYS.localAccessToken]) {
-    console.log('first log in****');
     // Store the query params in localStorage
     for (const property in queryParams) {
-      console.log('store params property', property);
       const paramValue = queryParams[property];
       if (paramValue) {
         window.localStorage.setItem(property, paramValue);
       }
     }
 
-    console.log('SETTING TIMESTAMP');
     // Set timestamp
     window.localStorage.setItem(LOCALSTORAGE_KEYS.tokenTimestamp, String(Date.now()));
     // Return access token from query params

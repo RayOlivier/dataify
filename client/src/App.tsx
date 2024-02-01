@@ -27,7 +27,6 @@ function App() {
       try {
         const { data } = await getCurrentUserProfile();
         setProfile(data);
-        // console.log(data);
       } catch (error) {
         console.error(error);
       }

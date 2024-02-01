@@ -13,8 +13,6 @@ export const TopArtists = () => {
       try {
         const topArtists = await getTopItems({ type: 'artists', time_range: activeRange });
 
-        console.log('topArtists', topArtists);
-
         setTopArtists(topArtists.data.items as TArtist[]);
       } catch (error) {
         console.error(error);
