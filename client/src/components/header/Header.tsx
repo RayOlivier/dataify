@@ -21,7 +21,7 @@ export const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
             <div style={{ width: '80px' }}>
               <SpotifyLogo></SpotifyLogo>
             </div>
-            {/* <div className="header__overline">Profile</div> */}
+
             <h1 className="header__name">{profile.display_name}</h1>
             <p className="header__meta">
               {profile.playlists && (
@@ -46,9 +46,7 @@ export const Header: React.FC<THeaderProps> = ({ profile, playlist }) => {
                 {playlist.followers.total} Follower{playlist.followers.total !== 1 ? 's' : ''}
               </span>
             </p>
-            {/* <span> */}
             <SpotifyButton destination={playlist.external_urls.spotify}></SpotifyButton>
-            {/* </span> */}
           </div>
         </div>
       ) : (

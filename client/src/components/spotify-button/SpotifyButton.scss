@@ -9,9 +9,14 @@
   text-decoration: none;
   font-weight: 700;
   color: $white;
-
   display: flex;
   align-items: center;
+  font-size: 16px;
+
+  &--sm {
+    font-size: 12px;
+    margin: 0;
+  }
 
   &__logo {
     height: 100%;

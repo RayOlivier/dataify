@@ -38,7 +38,7 @@ export const Profile = () => {
     <div className="profile">
       {profile && <Header profile={profile} />}
       {topArtists && topTracks && playlists ? (
-        <>
+        <main>
           <div className="section artists">
             <h2>Top artists this month</h2>
             <ul className="artist-list">
@@ -63,7 +63,7 @@ export const Profile = () => {
               ))}
             </ul>
           </div>
-        </>
+        </main>
       ) : (
         <Loader />
       )}

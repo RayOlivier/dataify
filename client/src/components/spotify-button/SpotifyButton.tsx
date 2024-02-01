@@ -4,13 +4,14 @@ import './SpotifyButton.scss';
 
 type TSpotifyButtonProps = {
   destination: string;
+  size?: 'sm' | 'md';
 };
 
-export const SpotifyButton: React.FC<TSpotifyButtonProps> = ({ destination }) => {
+export const SpotifyButton: React.FC<TSpotifyButtonProps> = ({ destination, size = 'md' }) => {
   return (
-    <Link className="spotify-button" to={destination} target="_blank">
+    <Link className={`spotify-button spotify-button--${size}`} to={destination} target="_blank">
       <img className="spotify-button__logo" src={logo} alt="" />
-      <span className="spotify-button__text">Listen on Spotify</span>
+      <span className="spotify-button__text">{size === 'md' ? 'Listen on Spotify' : 'Open Spotify'}</span>
     </Link>
   );
 };

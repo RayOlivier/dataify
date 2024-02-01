@@ -69,5 +69,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+@media (min-width: $tablet) {
+  main {
+    padding: 24px 16px;
+  }
+}
+
+@media (min-width: $desktop) {
+  main {
+    padding: 32px 40px;
+  }
 }

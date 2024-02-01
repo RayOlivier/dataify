@@ -126,10 +126,10 @@ export const Playlist = () => {
                 <h2>Tracks</h2>
                 <div>
                   <label className="sr-only" htmlFor="order-select">
-                    Sort tracks
+                    Sort tracks:{' '}
                   </label>
                   <select name="track-order" id="order-select" onChange={e => setSortValue(e.target.value as TOptions)}>
-                    <option value="">Sort tracks</option>
+                    <option value="">Sort by</option>
                     {sortOptions.map((option, i) => (
                       <option value={option} key={i}>
                         {`${option.charAt(0).toUpperCase()}${option.slice(1)}`}
