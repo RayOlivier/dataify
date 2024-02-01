@@ -1,6 +1,19 @@
 # Spotify App
 
-This is a portfolio piece, built with React, Node, and Express to interact with the Spotify API.
+This is a portfolio piece that utitizes the Spotify API to show a user's profile and top listens.
+NOTE: Currently pending a quota extension from Spotify to show a live demo.
+
+## Tech used
+React.js
+Express.js
+Node.js
+Vite
+Axios
+OAuth
+
+## Screenshots
+![Screenshot of page displaying Top Artists](https://github.com/RayOlivier/spotify-project/blob/main/client/public/screenshots/artists.png)
+
 
 ## Running Locally
 
@@ -15,4 +28,4 @@ This is a portfolio piece, built with React, Node, and Express to interact with 
     npm install
     ```
 
-4. Run the React app on <http://localhost:3000> and the Node server on <http://localhost:8080>
+4. Run the React app with Vite on <http://localhost:5173> and the Node server on <http://localhost:8080>
