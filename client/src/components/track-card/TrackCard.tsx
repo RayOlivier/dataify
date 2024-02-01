@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { TTrack } from '../../types/types';
 import './TrackCard.scss';
 import { formatDuration } from '../../utils';
+import { SpotifyButton } from '../spotify-button/SpotifyButton';
 
 type TTrackCardProps = {
   track: TTrack;
@@ -24,6 +25,7 @@ export const TrackCard: React.FC<TTrackCardProps> = ({ track, num, children }) =
           <div className="track-card__subtitle">
             <span className="track-card__artists">{track.artists.map(artist => artist.name)}</span> - {track.album.name}
           </div>
+          <SpotifyButton destination={track.external_urls.spotify} size="sm"></SpotifyButton>
         </span>
       </div>
 

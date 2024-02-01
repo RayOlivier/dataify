@@ -13,7 +13,6 @@ export interface TAuthorizedUser {
   name: string;
   email: string;
   picture?: string | null;
-  // image?: string | null;
   accessToken: string;
   sub: string;
   expires_at: number;
@@ -57,6 +56,9 @@ export interface TArtist {
 export interface TTrack {
   id: string;
   name: string;
+  external_urls: {
+    spotify: string;
+  };
   album: TAlbum;
   artists: TArtist[];
   duration_ms: number;
@@ -171,10 +173,6 @@ export interface TCurrentUserPlaylistData extends TPaginatedSpotifyData {
   items: TPlaylist[];
 }
 
-// export interface TPlaylistData extends TPaginatedSpotifyData {
-//   items: TPlaylist[];
-// }
-
 export interface TAudioFeaturesData {
   audio_features: TTrackAnalysis[];
 }
@@ -182,7 +180,3 @@ export interface TAudioFeaturesData {
 export interface TPlaylistData extends TPaginatedSpotifyData {
   items: TPlaylist[];
 }
-
-// export interface TPlaylistTracksData extends TPaginatedSpotifyData {
-//   // items: { tracks: TPlaylistTrack[] };
-// }
